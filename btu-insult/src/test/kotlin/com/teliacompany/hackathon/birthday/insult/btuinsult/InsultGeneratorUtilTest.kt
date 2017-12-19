@@ -6,21 +6,49 @@ import org.junit.Test
 import com.teliacompany.hackathon.birthday.insult.btuinsult.util.generateInsult
 
 class InsultGeneratorUtilTest {
-
-    companion object {
-
-        @JvmStatic
-        @BeforeClass
-        fun init() {
-            println("nada")
-        }
-
+    @Test
+    fun testDiaper() {
+        assertEquals(generateInsult(1), "You diaper pooper")
     }
 
     @Test
-    fun testParse() {
-        println(generateInsult(1))
-        assertEquals(generateInsult(1), "You diaper pooper")
+    fun testKid() {
+        assertEquals(generateInsult(5), "You can move to Ireland")
     }
+
+    @Test
+    fun testTeenager() {
+        assertEquals(generateInsult(15), "You annoying teenager")
+    }
+
+    @Test
+    fun testAdult() {
+        assertEquals(generateInsult(35), "Your life is over...")
+    }
+
+    @Test
+    fun testMidlifeCrisis() {
+        assertEquals(generateInsult(45), "How is your midlife crisis doing?")
+    }
+
+    @Test
+    fun testReallyOld() {
+        assertEquals(generateInsult(65), "You are really - I mean really - old")
+    }
+
+    @Test
+    fun testElse() {
+        assertEquals(generateInsult(85), "I do not know what to say")
+    }
+
+
+
+
+
+
+
+
+
+
 
 }
