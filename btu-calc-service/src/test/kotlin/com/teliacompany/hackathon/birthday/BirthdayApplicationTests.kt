@@ -20,6 +20,6 @@ class BirthdayApplicationTests {
 	@Test
 	fun contextLoads() {
 		val body = restTemplate?.getForObject<CalcResult>("/birthtimeunitcalc/1987-11-15")
-        Assert.assertNotNull(body);
+        Assert.assertNotNull(body)
 	}
 }
