@@ -8,6 +8,4 @@ class BirthdayApplication
 
 fun main(args: Array<String>) {
     runApplication<BirthdayApplication>(*args)
-
-
 }

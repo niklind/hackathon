@@ -12,5 +12,4 @@ class BirthdayApplicationTests {
 	@Test
 	fun contextLoads() {
 	}
-
 }
