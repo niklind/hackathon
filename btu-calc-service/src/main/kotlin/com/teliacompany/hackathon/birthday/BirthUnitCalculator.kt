@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.RestController
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.Month
-import java.time.temporal.ChronoUnit
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 @RestController
 class BirthUnitCalculator {
@@ -33,12 +31,13 @@ class BirthUnitCalculator {
                 val nextInteresting = backToInteresting.plus(idx.toLong() * tu.lowestMod, tu.unit)
                 val numberTu = tu.unit.between(btuDate, nextInteresting)
 
-                val calcResult = CalcResult(tu, numberTu, nextInteresting.toLocalDate())
+
+                val calcResult = CalcResult(tu, numberTu, btuDate.plus(numberTu, tu.unit).toLocalDate())
                 val rating = rating(numberTu)
                 maxRating = Math.max(rating, maxRating)
 
                 allResults.add(RatingAndResult(calcResult, rating))
-                //println("" + rating + ". " + tu.toString() + ". numberTu: " + numberTu + ". Idx: " + idx)
+//                println("" + rating + ". " + tu.toString() + ". numberTu: " + numberTu + ". Idx: " + idx + ". CalcResult: " + calcResult)
             }
         }
 
