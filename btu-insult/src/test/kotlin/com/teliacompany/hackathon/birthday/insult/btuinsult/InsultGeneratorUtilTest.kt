@@ -40,6 +40,11 @@ class InsultGeneratorUtilTest {
         assertEquals(generateInsult(85), "I do not know what to say")
     }
 
+    @Test
+    fun testLessThanZero() {
+        assertEquals(generateInsult(-2), "You are not born yet - access denied")
+    }
+
 
 
 

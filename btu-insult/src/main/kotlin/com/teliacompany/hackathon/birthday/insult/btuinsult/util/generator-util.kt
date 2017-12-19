@@ -3,6 +3,8 @@ package com.teliacompany.hackathon.birthday.insult.btuinsult.util
 fun generateInsult(age : Long) : String {
 
     var insult = ""
+    if (age < 0)
+        insult = "You are not born yet - access denied"
     if (age < 2)
         insult = "You diaper pooper"
     else if (age < 10)
