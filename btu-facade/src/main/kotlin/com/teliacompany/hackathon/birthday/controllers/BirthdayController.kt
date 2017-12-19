@@ -1,6 +1,6 @@
 package com.teliacompany.hackathon.birthday.controllers
 
-import com.teliacompany.hackathon.birthday.models.calc.CalcResult
+import com.teliacompany.hackathon.birthday.model.CalcResult
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
@@ -21,9 +21,9 @@ class BirthdayController {
         val calc = RestTemplate().getForObject<CalcResult>(calcUrl + birthDay)
         val insult = RestTemplate().getForObject<String>(insultUrl + birthDay)
 
-        return "On " + calc?.dateOfEvent.toString() +
+        return "On " + calc?.dateOfEvent +
                 " you will be "+ calc?.number +
-                " " + calc?.timeUnit?.name +
+                " " + calc?.timeUnit?.name?.toLowerCase() + "s" +
                 ", " + insult
     }
 
