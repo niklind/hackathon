@@ -2,11 +2,8 @@ package com.teliacompany.hackathon.birthday
 
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.Month
 import java.util.concurrent.TimeUnit
 
 @RestController
@@ -17,13 +14,17 @@ class BirthUnitCalculator {
     @GetMapping("/birthtimeunitcalc/{btuDate}")
     fun calculateBirthTimeUnit(@PathVariable(value = "btuDate") btuDate: String): CalcResult {
 
-        return CalcResult(TimeUnit.DAYS, 18000, LocalDate.parse(btuDate))
+        return CalcResult(TimeUnit.DAYS, getAge(LocalDate.parse(btuDate)), LocalDate.parse(btuDate))
     }
 
-    fun calculateWeeks(date: LocalDate): Int {
-        val current = LocalDateTime.now()
+    fun getAge(birthdate: LocalDate): Long {
+        val current = LocalDate.now()
 
-        return 0;
+        val ageInYears = current.year - birthdate.year
+
+        val ageInDays = ageInYears * 360
+
+        return ageInDays.toLong()
     }
 
 }
