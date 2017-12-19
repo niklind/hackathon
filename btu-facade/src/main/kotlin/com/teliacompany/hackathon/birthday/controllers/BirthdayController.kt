@@ -12,16 +12,19 @@ import java.time.LocalDate
 class BirthdayController {
 
     private val calcUrl = "http://localhost:8081/birthtimeunitcalc/"
+    private val insultUrl = "http://localhost:8082/insult/"
 
     @GetMapping("/{birthDayInput}")
     fun test(@PathVariable birthDayInput: String): String {
         val birthDay = LocalDate.parse(birthDayInput)
 
-        val result = RestTemplate().getForObject<CalcResult>(calcUrl + birthDay)
+        val calc = RestTemplate().getForObject<CalcResult>(calcUrl + birthDay)
+        val insult = RestTemplate().getForObject<String>(insultUrl + birthDay)
 
-        return "On " + result?.dateOfEvent.toString() +
-                " you will be "+ result?.number +
-                " " + result?.timeUnit?.name
+        return "On " + calc?.dateOfEvent.toString() +
+                " you will be "+ calc?.number +
+                " " + calc?.timeUnit?.name +
+                ", " + insult
     }
 
 }
