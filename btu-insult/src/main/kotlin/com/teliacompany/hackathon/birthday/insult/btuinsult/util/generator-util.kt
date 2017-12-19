@@ -5,7 +5,7 @@ fun generateInsult(age : Long) : String {
     var insult = ""
     if (age < 0)
         insult = "You are not born yet - access denied"
-    if (age < 2)
+    else if (age < 2)
         insult = "You diaper pooper"
     else if (age < 10)
         insult = "You can move to Ireland"
