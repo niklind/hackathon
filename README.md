@@ -9,6 +9,7 @@ The main intention was to explore and gain experience with newer frameworks and 
 mvn clean install
 ```
 
+For each submodule (order doesn't matter)
 ```bash 
 java -jar <jar-file>
 ```
