@@ -2,9 +2,9 @@ package com.teliacompany.hackathon.birthday.controllers
 
 import com.teliacompany.hackathon.birthday.model.CalcResult
 import org.springframework.stereotype.Component
-import org.springframework.web.client.RestTemplate
-import org.springframework.web.client.getForObject
 import org.springframework.web.reactive.function.BodyInserters.fromObject
+import org.springframework.web.reactive.function.client.WebClient
+import org.springframework.web.reactive.function.client.bodyToMono
 import org.springframework.web.reactive.function.server.ServerRequest
 import org.springframework.web.reactive.function.server.ServerResponse
 import reactor.core.publisher.Mono
@@ -18,16 +18,28 @@ class BirthdayController {
 
     fun birthdayInsult(req: ServerRequest): Mono<ServerResponse> {
         val birthDayInput = req.pathVariable("birthDayInput")
-
         val birthDay = LocalDate.parse(birthDayInput)
 
-        val calc = RestTemplate().getForObject<CalcResult>(calcUrl + birthDay)
-        val insult = RestTemplate().getForObject<String>(insultUrl + birthDay)
+        val calc = WebClient.create(calcUrl + birthDay)
+                .get()
+                .retrieve()
+                .bodyToMono<CalcResult>()
 
-        return ServerResponse.ok().body(fromObject("On " + calc?.dateOfEvent +
-                " you will be "+ calc?.number +
-                " " + calc?.timeUnit?.name?.toLowerCase() + "s" +
-                ". " + insult + "!"))
+        val insult = WebClient.create(insultUrl + birthDay)
+                .get()
+                .retrieve()
+                .bodyToMono<String>()
+
+        return calc.zipWith(insult)
+                .map {
+                    "On " + it.t1.dateOfEvent +
+                    " you will be " + it.t1.number +
+                    " " + it.t1.timeUnit.name.toLowerCase() + "s." +
+                    " " + it.t2 + "!"
+                }
+                .flatMap {
+                    ServerResponse.ok().body(fromObject(it))
+                }
     }
 
 }
